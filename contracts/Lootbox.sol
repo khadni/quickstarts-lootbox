@@ -177,7 +177,7 @@ contract Lootbox is VRFConsumerBaseV2Plus, ERC721Holder, ERC1155Holder, Ownable 
     /// @param whitelistRoot The merkle root of the whitelist for the private openning.
     /// If the root is 0x0, the lootbox is set in public open mode.
     /// @param vrfKeyHash The key hash for Chainlink VRF
-    /// @param vrfCoordinatorV2_5 The address of the Chainlink VRF coordinator V2_5
+    /// @param vrfCoordinatorV2Plus The address of the Chainlink VRF coordinator V2Plus
     /// @param vrfSubscriptionId The subscription ID for Chainlink VRF
     constructor(
         Token[] memory tokens,
@@ -187,9 +187,9 @@ contract Lootbox is VRFConsumerBaseV2Plus, ERC721Holder, ERC1155Holder, Ownable 
         uint64 openStartTimestamp,
         bytes32 whitelistRoot,
         bytes32 vrfKeyHash,
-        address vrfCoordinatorV2_5,
+        address vrfCoordinatorV2Plus,
         uint64 vrfSubscriptionId
-    ) VRFConsumerBaseV2Plus(vrfCoordinatorV2_5) {
+    ) VRFConsumerBaseV2Plus(vrfCoordinatorV2Plus) {
         uint64 tokenCount = uint64(tokens.length);
 
         if (tokenCount == 0) revert NoTokens();

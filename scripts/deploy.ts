@@ -157,7 +157,7 @@ async function main() {
   if (!chainId) {
     throw new Error('Missing network configuration!')
   }
-  const { vrfCoordinatorV2, keyHash, linkToken, fundAmount } =
+  const { vrfCoordinatorV2Plus, keyHash, linkToken, fundAmount } =
     networkConfig[chainId]
 
   let subscriptionId: BigNumber
@@ -165,7 +165,7 @@ async function main() {
     subscriptionId = BigNumber.from(existingSubscriptionId)
   } else {
     const createSubscriptionResponse = await chainlink.createVrfSubscription(
-      vrfCoordinatorV2,
+      vrfCoordinatorV2Plus,
     )
     subscriptionId = createSubscriptionResponse.subscriptionId
     console.log('Created VRF subscription with ID', subscriptionId.toString())
@@ -173,7 +173,7 @@ async function main() {
     // Fund the newly created subscription
     const fundAmountInJuels = BigNumber.from(fundAmount)
     await chainlink.fundVrfSubscription(
-      vrfCoordinatorV2,
+      vrfCoordinatorV2Plus,
       linkToken,
       fundAmountInJuels,
       subscriptionId,
@@ -223,7 +223,7 @@ async function main() {
     openStartTimestampInUnix,
     whitelistRoot,
     keyHash,
-    vrfCoordinatorV2,
+    vrfCoordinatorV2Plus,
     subscriptionId,
   ]
   const lootboxFactory = await ethers.getContractFactory('Lootbox')
@@ -235,7 +235,7 @@ async function main() {
   // Note: The owner of the subscription must be the same as the deployer.
   // If you are using a different account, you will need comment out the following call.
   await chainlink.addVrfConsumer(
-    vrfCoordinatorV2,
+    vrfCoordinatorV2Plus,
     lootbox.address,
     subscriptionId,
   )
