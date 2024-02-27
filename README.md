@@ -159,11 +159,11 @@ Besides deploying the contract, the deploy script will also:
 
 3. Create and fund a VRF subscription if one is not provided.
 
-   Note: Make sure the deployer account has enough LINK to fund the subscription. The initial funding amount is configured in `network-config.js`. For testnets, you can use the [LINK faucet](https://docs.chain.link/docs/link-token-contracts/#faucets).
+   Note: Make sure the deployer account has enough LINK to fund the subscription. The initial funding amount is configured in `network-config.js`. For testnets, you can use the [LINK faucets](https://faucets.chain.link/).
 
 4. Add the deployed contract address as a consumer to the VRF subscription.
 
-   Note: If you provided a subscription ID, make sure the deployer account is the owner of the subscription. Otherwise, comment out the `addVrfConsumer` function in the deploy script and add the contract address manually.
+   Note: If you provided a subscription ID, make sure the deployer account is the owner of the subscription. Otherwise, comment out the `addVrfConsumer` function in the deploy script and add the contract address manually. To view the subscriptions your account owns, connect your wallet on the [VRF Subscription UI](https://vrf.chain.link/).
 
 5. Verify the contract on Etherscan. If you want to skip this step, comment out the `verify` function in the deploy script.
 
@@ -193,7 +193,7 @@ When the private mode is disabled, anyone can open the lootbox by calling the `p
 
 ## Randomness
 
-The contract uses [Chainlink VRF](https://vrf.chain.link) to generate randomness which is used to determine the rewards the user receives.
+The contract uses [Chainlink VRF](https://docs.chain.link/vrf) to generate randomness which is used to determine the rewards the user receives.
 
 Because the randomness is generated off-chain, the contract will not be able to transfer the rewards immediately. Instead, it will store the request and once the randomness is received, the user or anyone else can call the `claimRewards` function to transfer the rewards to the user.
 
